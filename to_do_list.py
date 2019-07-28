@@ -3,6 +3,8 @@ import tkinter as tk
 import random
 from tkinter import *
 from tkinter import messagebox
+from PIL import Image, ImageTk
+from hover_info import HoverInfo
 
 
 # =============================  functions  =============================
@@ -30,10 +32,14 @@ def del_all():
             tasks = []
             update_listbox()
             show_number_of_tasks()
+            show_number_of_tasks()
+            # I'm not sure if I like it when this is called next
+            # show_number_of_tasks()
 
 def del_one():
     # Get the text of the currently selected item
     task = lb_tasks.get('active')
+
     # Confirm it's in the list
     if task in tasks:
         tasks.remove(task)
@@ -68,10 +74,15 @@ def choose_random():
 
 
 def show_number_of_tasks():
-    # Get the number of tasks
-    number_of_tasks = len(tasks)
-    # Display the message
-    lbl_display['text'] = 'Number of tasks: %s' % number_of_tasks
+    global show_tasks
+    show_tasks = not show_tasks
+    if show_tasks:
+        # Get the number of tasks
+        number_of_tasks = len(tasks)
+        # Display the message
+        lbl_display['text'] = 'Number of tasks: %s' % number_of_tasks
+    else:
+        lbl_display['text'] = ''
 
 
 # Populates the listbox in the window
@@ -81,6 +92,7 @@ def update_listbox():
     # Repopulate the current list
     for t in tasks:
         lb_tasks.insert('end', t)
+    lb_tasks.selection_set(first=0)
 
 
 def clear_listbox():
@@ -119,6 +131,13 @@ def load_tasks():
         tasks.append(t)
     return tasks
 
+def on_add_enter():
+    tool_btn_add['text']='add task'
+
+def on_add_leave():
+    tool_btn_add['text']=''
+
+
 # Create root window
 root = tk.Tk()
 
@@ -131,8 +150,9 @@ elif get_platform() == 'Windows':
 
 text = Text(root)
 text.config(wrap=CHAR)
+# text.grid(padx=5)
 root.bind('<Return>', add_task)
-root.geometry('425x400')
+root.geometry('300x375')
 root.title('Jordan\'s To Do List')
 
 menu = Menu(root)
@@ -144,13 +164,45 @@ sub_menu_1.add_command(label='Edit', command=do_nothing)
 sub_menu_1.add_separator()
 sub_menu_1.add_command(label='Exit', command=exit)
 
-toolbar = Frame(root, height=30, bd=1, relief=RAISED)
+# Building the toolbar and toolbar icons
+toolbar = Frame(root, height=45, bd=3)
 toolbar.grid(row=0, column=0, columnspan=2, sticky='WE')
+
+add_img = Image.open('./images/png_files/add_24.png')
+add_icon = ImageTk.PhotoImage(add_img)
+tool_btn_add = Button(toolbar, text='add', image=add_icon, command=add_task)
+tool_btn_add.grid(row=0, column=0)
+
+del_img = Image.open('./images/png_files/cancel.png')
+del_icon = ImageTk.PhotoImage(del_img)
+tool_btn_delete = Button(toolbar, text='delete', image=del_icon, command=del_one)
+tool_btn_delete.grid(row=0, column=1)
+
+num_img = Image.open('./images/png_files/hashtag.png')
+num_icon = ImageTk.PhotoImage(num_img)
+tool_btn_num = Button(toolbar, text='N', image=num_icon, command=show_number_of_tasks)
+tool_btn_num.grid(row=0, column=2)
+
+up_img = Image.open('./images/png_files/up.png')
+up_icon = ImageTk.PhotoImage(up_img)
+tool_btn_up = Button(toolbar, text='sort up', image=up_icon, command=sort_asc)
+tool_btn_up.grid(row=0, column=3)
+
+down_img = Image.open('./images/png_files/down.png')
+down_icon = ImageTk.PhotoImage(down_img)
+tool_btn_down = Button(toolbar, text='sort down', image=down_icon, command=sort_dsc)
+tool_btn_down.grid(row=0, column=4)
+
+del_all_img = Image.open('./images/png_files/clear.png')
+del_all_icon = ImageTk.PhotoImage(del_all_img)
+tool_btn_del_all = Button(toolbar, text='delete all', image=del_all_icon, command=del_all)
+tool_btn_del_all.grid(row=0, column=5)
 
 tasks = load_tasks()
 print(tasks)
+show_tasks = False
 
-lbl_title = tk.Label(root, text='to-do-list', bg='#bee6e2')
+lbl_title = tk.Label(root, text='to-do-list-name-here', bg='#bee6e2')
 lbl_title.grid(row=1, column=0, columnspan=2, sticky='WE')
 
 lbl_display = tk.Label(root, text='', bg='#ffffff', wraplength=155, justify=CENTER)
@@ -162,7 +214,7 @@ status_display.grid(row=11, column=0, columnspan=1, rowspan=1, sticky='WE')
 txt_input = tk.Entry(root, width=15, text='to-do-list', bg='#ffffff')
 txt_input.grid(row=3, column=1, sticky='WE')
 
-lb_tasks = tk.Listbox(root)
+lb_tasks = tk.Listbox(root, selectbackground='#bee6e2')
 lb_tasks.grid(row=4, column=1, rowspan=6)
 
 btn_add_task = tk.Button(root, text='Add Task', fg='#4a6361',
@@ -201,6 +253,15 @@ btn_exit.grid(row=10, column=0, sticky='WE')
 # Keep track of data_models using a list
 # tasks = ['play with Benny', 'call Birdy', 'water plants']
 load_task_list(tasks)
-
+lb_tasks.selection_set(first=0)
 # Start the main events loop
 root.mainloop()
+
+# TODO:
+# re-write file contents
+# add icons to toolbar:
+#   - save
+#   - edit
+
+# name to do list
+# highlight color
