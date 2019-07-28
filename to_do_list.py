@@ -7,9 +7,8 @@ from tkinter import messagebox
 
 # =============================  functions  =============================
 def add_task(*args):
-    global tasks
     task = txt_input.get()
-    if task is not '':
+    if txt_input.get() is not '':
         tasks.append(task)
     else:
         lbl_display['text'] = 'Please enter a task.'
@@ -19,6 +18,7 @@ def add_task(*args):
 
 def del_all():
     # Since we are changing the list, it needs to be global
+    # not sure why we have to re declare global here
     global tasks
     if len(tasks) == 0:
         lbl_display['text'] = 'Your list is already empty.'
@@ -30,7 +30,6 @@ def del_all():
             tasks = []
             update_listbox()
             show_number_of_tasks()
-
 
 def del_one():
     # Get the text of the currently selected item
@@ -106,8 +105,23 @@ def get_platform():
 
     return platforms[sys.platform]
 
+
+def load_task_list(tasks):
+    for t in tasks:
+        lb_tasks.insert('end', t)
+
+def load_tasks():
+    f = open('./data_models/list_data.txt', 'r')
+    data = f.readlines()
+    tasks = []
+    for t in data:
+        t = t.replace('\n', '')
+        tasks.append(t)
+    return tasks
+
 # Create root window
 root = tk.Tk()
+
 if get_platform() == 'OS X':
     app_ico = tk.Image('photo', file='./images/png_files/main_icon.png')
     root.iconphoto(True, app_ico)
@@ -118,7 +132,7 @@ elif get_platform() == 'Windows':
 text = Text(root)
 text.config(wrap=CHAR)
 root.bind('<Return>', add_task)
-root.geometry('425x375')
+root.geometry('425x400')
 root.title('Jordan\'s To Do List')
 
 menu = Menu(root)
@@ -129,59 +143,64 @@ sub_menu_1.add_command(label='New', command=add_task)
 sub_menu_1.add_command(label='Edit', command=do_nothing)
 sub_menu_1.add_separator()
 sub_menu_1.add_command(label='Exit', command=exit)
-# root.configure(bg='#ffffff')
 
-# tkinter only supports .ico files (and not
-# Keep track of data using a list
-tasks = []
-# For testing purposes use a default list
-# tasks = ['play with Benny', 'call Birdy', 'water plants']
+toolbar = Frame(root, height=30, bd=1, relief=RAISED)
+toolbar.grid(row=0, column=0, columnspan=2, sticky='WE')
+
+tasks = load_tasks()
+print(tasks)
 
 lbl_title = tk.Label(root, text='to-do-list', bg='#bee6e2')
-lbl_title.grid(row=0, column=0, columnspan=2, sticky='WE')
+lbl_title.grid(row=1, column=0, columnspan=2, sticky='WE')
 
 lbl_display = tk.Label(root, text='', bg='#ffffff', wraplength=155, justify=CENTER)
-lbl_display.grid(row=10, column=1, columnspan=1, rowspan=1, sticky='WE')
+lbl_display.grid(row=11, column=1, columnspan=1, rowspan=1, sticky='WE')
 
 status_display = tk.Label(root, text='Status:', bg='#ffffff', justify=LEFT)
-status_display.grid(row=10, column=0, columnspan=1, rowspan=1, sticky='WE')
+status_display.grid(row=11, column=0, columnspan=1, rowspan=1, sticky='WE')
 
 txt_input = tk.Entry(root, width=15, text='to-do-list', bg='#ffffff')
-txt_input.grid(row=2, column=1, sticky='WE')
+txt_input.grid(row=3, column=1, sticky='WE')
 
 lb_tasks = tk.Listbox(root)
-lb_tasks.grid(row=3, column=1, rowspan=6)
+lb_tasks.grid(row=4, column=1, rowspan=6)
 
 btn_add_task = tk.Button(root, text='Add Task', fg='#4a6361',
                          command=add_task)
-btn_add_task.grid(row=2, column=0, sticky='WE')
+btn_add_task.grid(row=3, column=0, sticky='WE')
 
 btn_del_all = tk.Button(root, text='Delete All', fg='#4a6361',
                         command=del_all)
-btn_del_all.grid(row=3, column=0, sticky='WE')
+btn_del_all.grid(row=4, column=0, sticky='WE')
 
 btn_del_one = tk.Button(root, text='Delete', fg='#4a6361', command=del_one)
-btn_del_one.grid(row=4, column=0, sticky='WE')
+btn_del_one.grid(row=5, column=0, sticky='WE')
 
 btn_sort_asc = tk.Button(root, text='Sort Asc', fg='#4a6361',
                          command=sort_asc)
-btn_sort_asc.grid(row=5, column=0, sticky='WE')
+btn_sort_asc.grid(row=6, column=0, sticky='WE')
 
 btn_sort_dsc = tk.Button(root, text='Sort Dsc', fg='#4a6361',
                          command=sort_dsc)
-btn_sort_dsc.grid(row=6, column=0, sticky='WE')
+btn_sort_dsc.grid(row=7, column=0, sticky='WE')
 
 btn_choose_random = tk.Button(root, text='Choose Random', fg='#4a6361',
                               command=choose_random)
-btn_choose_random.grid(row=7, column=0, sticky='WE')
+btn_choose_random.grid(row=8, column=0, sticky='WE')
 
 btn_show_number_of_tasks = tk.Button(root, text='Number of Tasks',
                                      fg='#4a6361',
                                      command=show_number_of_tasks)
-btn_show_number_of_tasks.grid(row=8, column=0)
+btn_show_number_of_tasks.grid(row=9, column=0)
 
 btn_exit = tk.Button(root, text='Exit', fg='#4a6361', command=exit)
-btn_exit.grid(row=9, column=0, sticky='WE')
+btn_exit.grid(row=10, column=0, sticky='WE')
+
+
+
+# Keep track of data_models using a list
+# tasks = ['play with Benny', 'call Birdy', 'water plants']
+load_task_list(tasks)
 
 # Start the main events loop
 root.mainloop()
