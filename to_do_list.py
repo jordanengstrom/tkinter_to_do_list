@@ -6,6 +6,8 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 from hover_info import HoverInfo
 
+__author__  = 'Jordan Engstrom'
+__version__ = '1.0'
 
 # =============================  functions  =============================
 def add_task(*args):
@@ -36,7 +38,7 @@ def del_all():
             # I'm not sure if I like it when this is called next
             # show_number_of_tasks()
 
-def del_one():
+def del_one(*args):
     # Get the text of the currently selected item
     task = lb_tasks.get('active')
 
@@ -93,6 +95,8 @@ def update_listbox():
     for t in tasks:
         lb_tasks.insert('end', t)
     lb_tasks.selection_set(first=0)
+    if len(tasks) == 0:
+        lbl_display['text'] = 'Your todo list is empty'
 
 
 def clear_listbox():
@@ -121,6 +125,8 @@ def get_platform():
 def load_task_list(tasks):
     for t in tasks:
         lb_tasks.insert('end', t)
+    if len(tasks) == 0:
+        lbl_display['text'] = 'Your to do list is empty.'
 
 def load_tasks():
     f = open('./data_models/list_data.txt', 'r')
@@ -137,6 +143,20 @@ def on_add_enter():
 def on_add_leave():
     tool_btn_add['text']=''
 
+def save_list():
+    # delete contents
+    f = open('./data_models/list_data.txt', 'w')
+    # write contents
+    for t in tasks:
+        f.write(t + '\n')
+    #save
+    f.close()
+
+
+def save_and_exit():
+    # save_list()
+    root.destroy()
+
 
 # Create root window
 root = tk.Tk()
@@ -152,8 +172,18 @@ text = Text(root)
 text.config(wrap=CHAR)
 # text.grid(padx=5)
 root.bind('<Return>', add_task)
+root.bind("<BackSpace>", del_one)
 root.geometry('300x375')
-root.title('Jordan\'s To Do List')
+root.title('Jordan\'s First Tkinter App')
+
+# root.rowconfigure(0, pad=20)
+root.rowconfigure(1, pad=5)
+root.rowconfigure(2, pad=5)
+root.rowconfigure(3, pad=5)
+
+root.columnconfigure(0, pad=50)
+root.columnconfigure(1, pad=50)
+root.columnconfigure(2, pad=50)
 
 menu = Menu(root)
 root.config(menu=menu, bg='#ffffff')
@@ -162,91 +192,77 @@ menu.add_cascade(label='File', menu=sub_menu_1)
 sub_menu_1.add_command(label='New', command=add_task)
 sub_menu_1.add_command(label='Edit', command=do_nothing)
 sub_menu_1.add_separator()
-sub_menu_1.add_command(label='Exit', command=exit)
+sub_menu_1.add_command(label='Exit', command=save_and_exit)
 
 # Building the toolbar and toolbar icons
 toolbar = Frame(root, height=45, bd=3)
 toolbar.grid(row=0, column=0, columnspan=2, sticky='WE')
 
+save_img = Image.open('./images/png_files/save.png')
+save_icon = ImageTk.PhotoImage(save_img)
+tool_btn_save = Button(toolbar, text='add', image=save_icon, command=save_list)
+tool_btn_save.grid(row=0, column=0)
+
 add_img = Image.open('./images/png_files/add_24.png')
 add_icon = ImageTk.PhotoImage(add_img)
 tool_btn_add = Button(toolbar, text='add', image=add_icon, command=add_task)
-tool_btn_add.grid(row=0, column=0)
+tool_btn_add.grid(row=0, column=1)
 
 del_img = Image.open('./images/png_files/cancel.png')
 del_icon = ImageTk.PhotoImage(del_img)
 tool_btn_delete = Button(toolbar, text='delete', image=del_icon, command=del_one)
-tool_btn_delete.grid(row=0, column=1)
+tool_btn_delete.grid(row=0, column=2)
 
 num_img = Image.open('./images/png_files/hashtag.png')
 num_icon = ImageTk.PhotoImage(num_img)
 tool_btn_num = Button(toolbar, text='N', image=num_icon, command=show_number_of_tasks)
-tool_btn_num.grid(row=0, column=2)
+tool_btn_num.grid(row=0, column=3)
 
 up_img = Image.open('./images/png_files/up.png')
 up_icon = ImageTk.PhotoImage(up_img)
 tool_btn_up = Button(toolbar, text='sort up', image=up_icon, command=sort_asc)
-tool_btn_up.grid(row=0, column=3)
+tool_btn_up.grid(row=0, column=4)
 
 down_img = Image.open('./images/png_files/down.png')
 down_icon = ImageTk.PhotoImage(down_img)
 tool_btn_down = Button(toolbar, text='sort down', image=down_icon, command=sort_dsc)
-tool_btn_down.grid(row=0, column=4)
+tool_btn_down.grid(row=0, column=5)
 
 del_all_img = Image.open('./images/png_files/clear.png')
 del_all_icon = ImageTk.PhotoImage(del_all_img)
 tool_btn_del_all = Button(toolbar, text='delete all', image=del_all_icon, command=del_all)
-tool_btn_del_all.grid(row=0, column=5)
+tool_btn_del_all.grid(row=0, column=6)
+
+exit_img = Image.open('./images/png_files/exit.png')
+exit_icon = ImageTk.PhotoImage(exit_img)
+tool_btn_exit = Button(toolbar, image=exit_icon, command=save_and_exit)
+tool_btn_exit.grid(row=0, column=7, sticky='WE')
 
 tasks = load_tasks()
 print(tasks)
 show_tasks = False
 
-lbl_title = tk.Label(root, text='to-do-list-name-here', bg='#bee6e2')
+lbl_title = tk.Label(root, text='To Do List', bg='#bee6e2')
 lbl_title.grid(row=1, column=0, columnspan=2, sticky='WE')
 
 lbl_display = tk.Label(root, text='', bg='#ffffff', wraplength=155, justify=CENTER)
-lbl_display.grid(row=11, column=1, columnspan=1, rowspan=1, sticky='WE')
-
-status_display = tk.Label(root, text='Status:', bg='#ffffff', justify=LEFT)
-status_display.grid(row=11, column=0, columnspan=1, rowspan=1, sticky='WE')
+lbl_display.grid(row=50, column=0, columnspan=2, rowspan=1, sticky='WE')
 
 txt_input = tk.Entry(root, width=15, text='to-do-list', bg='#ffffff')
-txt_input.grid(row=3, column=1, sticky='WE')
+txt_input.grid(row=3, column=0, columnspan=2, sticky='WE')
 
-lb_tasks = tk.Listbox(root, selectbackground='#bee6e2')
-lb_tasks.grid(row=4, column=1, rowspan=6)
+lb_frame = Frame(root, height=50, bd=3)
+lb_frame.grid(sticky=N+S+E+W)
 
-btn_add_task = tk.Button(root, text='Add Task', fg='#4a6361',
-                         command=add_task)
-btn_add_task.grid(row=3, column=0, sticky='WE')
+lb_tasks = tk.Listbox(lb_frame, selectbackground='#bee6e2', height=15)
+lb_tasks.grid(row=6, column=0, rowspan=10, columnspan=2, sticky='WE')
 
-btn_del_all = tk.Button(root, text='Delete All', fg='#4a6361',
-                        command=del_all)
-btn_del_all.grid(row=4, column=0, sticky='WE')
+scrollbar = Scrollbar(lb_frame, orient='vertical')
+scrollbar.config(command=lb_tasks.yview)
+scrollbar.grid(row=6, column=0, sticky='NS')
+# lb_tasks.config(yscrollcommand=scrollbar.set)
+# scrollbar.pack(side='right')
 
-btn_del_one = tk.Button(root, text='Delete', fg='#4a6361', command=del_one)
-btn_del_one.grid(row=5, column=0, sticky='WE')
-
-btn_sort_asc = tk.Button(root, text='Sort Asc', fg='#4a6361',
-                         command=sort_asc)
-btn_sort_asc.grid(row=6, column=0, sticky='WE')
-
-btn_sort_dsc = tk.Button(root, text='Sort Dsc', fg='#4a6361',
-                         command=sort_dsc)
-btn_sort_dsc.grid(row=7, column=0, sticky='WE')
-
-btn_choose_random = tk.Button(root, text='Choose Random', fg='#4a6361',
-                              command=choose_random)
-btn_choose_random.grid(row=8, column=0, sticky='WE')
-
-btn_show_number_of_tasks = tk.Button(root, text='Number of Tasks',
-                                     fg='#4a6361',
-                                     command=show_number_of_tasks)
-btn_show_number_of_tasks.grid(row=9, column=0)
-
-btn_exit = tk.Button(root, text='Exit', fg='#4a6361', command=exit)
-btn_exit.grid(row=10, column=0, sticky='WE')
 
 
 
@@ -258,10 +274,9 @@ lb_tasks.selection_set(first=0)
 root.mainloop()
 
 # TODO:
-# re-write file contents
-# add icons to toolbar:
-#   - save
-#   - edit
-
-# name to do list
-# highlight color
+# ummm get a main method going
+# add priority
+# Entry text placeholder
+# edit functionality
+# play with fonts
+# fix margin/border/padding
