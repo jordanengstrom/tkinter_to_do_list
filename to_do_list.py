@@ -47,6 +47,8 @@ def del_one(*args):
     if task in tasks:
         tasks.remove(task)
         update_listbox()
+        show_number_of_tasks()
+        show_number_of_tasks()
     else:
         lbl_display['text'] = 'You must first select a task to delete it.'
 
@@ -88,14 +90,11 @@ def show_number_of_tasks():
         lbl_display['text'] = ''
 
 def edit_task():
-    print('edit_task was called')
     selected_task = lb_tasks.get('active')
-    print(selected_task)
     if selected_task is not None or '':
-        replacement_task = simpledialog.askstring('Edit task: ',
-                                                     'Edit your task\'s text below',
+        replacement_task = simpledialog.askstring('Edit task',
+                                                     'Edit your task\'s text below:',
                                                      parent=root)
-        print(replacement_task)
         global tasks
         # TODO: Make this more pythonic with list comprehension
         for task in tasks:
@@ -193,7 +192,7 @@ if get_platform() == 'OS X':
     root.iconphoto(True, app_ico)
     root.wm_iconbitmap(r'./images/icns_files/main_icon.icns')
 elif get_platform() == 'Windows':
-    print('sucks to suck')
+    print('fix windows icon')
 
 text = Text(root)
 text.config(wrap=CHAR)
