@@ -5,10 +5,10 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import simpledialog
 from PIL import Image, ImageTk
-from hover_info import HoverInfo
 
-__author__  = 'Jordan Engstrom'
+__author__ = 'Jordan Engstrom'
 __version__ = '1.0'
+
 
 # =============================  functions  =============================
 def add_task(*args):
@@ -38,6 +38,7 @@ def del_all():
             show_number_of_tasks()
             # I'm not sure if I like it when this is called next
             # show_number_of_tasks()
+
 
 def del_one(*args):
     # Get the text of the currently selected item
@@ -89,17 +90,19 @@ def show_number_of_tasks():
     else:
         lbl_display['text'] = ''
 
+
 def edit_task():
     selected_task = lb_tasks.get('active')
     if selected_task is not None or '':
         replacement_task = simpledialog.askstring('Edit task',
-                                                     'Edit your task\'s text below:',
-                                                     parent=root)
+                                                  'Edit your task\'s'
+                                                  'text below:',
+                                                  parent=root)
         global tasks
         # TODO: Make this more pythonic with list comprehension
         for task in tasks:
             if task == selected_task:
-                #TODO: Make this more strict
+                # TODO: Make this more strict
                 if replacement_task not in [None, '', ' ', '    ']:
                     i = tasks.index(selected_task)
                     tasks[i] = replacement_task
@@ -148,26 +151,31 @@ def get_platform():
     return platforms[sys.platform]
 
 
-def load_task_list(tasks):
-    for t in tasks:
+def load_task_list(tasks_list):
+    for t in tasks_list:
         lb_tasks.insert('end', t)
-    if len(tasks) == 0:
+    if len(tasks_list) == 0:
         lbl_display['text'] = 'Your to do list is empty.'
+
 
 def load_tasks():
     f = open('./data_models/list_data.txt', 'r')
     data = f.readlines()
+    global tasks
     tasks = []
     for t in data:
         t = t.replace('\n', '')
         tasks.append(t)
     return tasks
 
+
 def on_add_enter():
-    tool_btn_add['text']='add task'
+    tool_btn_add['text'] = 'add task'
+
 
 def on_add_leave():
-    tool_btn_add['text']=''
+    tool_btn_add['text'] = ''
+
 
 def save_list():
     # delete contents
@@ -175,7 +183,6 @@ def save_list():
     # write contents
     for t in tasks:
         f.write(t + '\n')
-    #save
     f.close()
 
 
@@ -198,7 +205,7 @@ text = Text(root)
 text.config(wrap=CHAR)
 # text.grid(padx=5)
 root.bind('<Return>', add_task)
-root.bind("<BackSpace>", del_one)
+root.bind('<BackSpace>', del_one)
 root.geometry('275x400')
 root.title('Jordan\'s First Tkinter App')
 
@@ -242,12 +249,14 @@ tool_btn_add.grid(row=0, column=2)
 
 del_img = Image.open('./images/png_files/cancel.png')
 del_icon = ImageTk.PhotoImage(del_img)
-tool_btn_delete = Button(toolbar, text='delete', image=del_icon, command=del_one)
+tool_btn_delete = Button(toolbar, text='delete', image=del_icon,
+                         command=del_one)
 tool_btn_delete.grid(row=0, column=3)
 
 num_img = Image.open('./images/png_files/hashtag.png')
 num_icon = ImageTk.PhotoImage(num_img)
-tool_btn_num = Button(toolbar, text='N', image=num_icon, command=show_number_of_tasks)
+tool_btn_num = Button(toolbar, text='N', image=num_icon,
+                      command=show_number_of_tasks)
 tool_btn_num.grid(row=0, column=4)
 
 up_img = Image.open('./images/png_files/up.png')
@@ -257,12 +266,14 @@ tool_btn_up.grid(row=0, column=5)
 
 down_img = Image.open('./images/png_files/down.png')
 down_icon = ImageTk.PhotoImage(down_img)
-tool_btn_down = Button(toolbar, text='sort down', image=down_icon, command=sort_dsc)
+tool_btn_down = Button(toolbar, text='sort down', image=down_icon,
+                       command=sort_dsc)
 tool_btn_down.grid(row=0, column=6)
 
 del_all_img = Image.open('./images/png_files/clear.png')
 del_all_icon = ImageTk.PhotoImage(del_all_img)
-tool_btn_del_all = Button(toolbar, text='delete all', image=del_all_icon, command=del_all)
+tool_btn_del_all = Button(toolbar, text='delete all', image=del_all_icon,
+                          command=del_all)
 tool_btn_del_all.grid(row=0, column=7)
 
 exit_img = Image.open('./images/png_files/exit.png')
@@ -278,7 +289,8 @@ show_tasks = False
 lbl_title = tk.Label(root, text='To Do List', bg='#bee6e2')
 lbl_title.grid(row=1, column=0, columnspan=2, sticky='WE')
 
-lbl_display = tk.Label(root, text='', bg='#ffffff', wraplength=155, justify=CENTER)
+lbl_display = tk.Label(root, text='', bg='#ffffff', wraplength=155,
+                       justify=CENTER)
 lbl_display.grid(row=50, column=0, columnspan=2, rowspan=1, sticky='WE')
 
 txt_input = tk.Entry(root, width=15, text='to-do-list', bg='#ffffff')
