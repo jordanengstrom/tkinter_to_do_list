@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25f8d47e-0762-43cc-b149-96c122bb74cf" name="Default Changelist" comment="added toolbar Frame">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="25f8d47e-0762-43cc-b149-96c122bb74cf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/to_do_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/to_do_list.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/to_do_list.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="273" column="20" lean-forward="true" selection-start-line="273" selection-start-column="20" selection-end-line="273" selection-end-column="20" />
+            <state relative-caret-position="192">
+              <caret line="109" column="20" lean-forward="true" selection-start-line="109" selection-start-column="20" selection-end-line="109" selection-end-column="20" />
               <folding>
                 <element signature="e#19#39#0" expanded="true" />
               </folding>
@@ -266,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564292036000</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed del_one show tasks bug">
+      <created>1564859624724</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1564859624724</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -281,7 +287,7 @@
       <window_info id="Job Explorer" order="5" />
       <window_info anchor="bottom" id="Console" order="0" />
       <window_info anchor="bottom" id="DB Execution Console" order="1" />
-      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32959327" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32957748" />
       <window_info anchor="bottom" id="Python Console" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
@@ -323,7 +329,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added toolbar Frame" />
-    <option name="LAST_COMMIT_MESSAGE" value="added toolbar Frame" />
+    <MESSAGE value="fixed del_one show tasks bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed del_one show tasks bug" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/menu_ex.py" />
@@ -357,8 +364,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/to_do_list.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="273" column="20" lean-forward="true" selection-start-line="273" selection-start-column="20" selection-end-line="273" selection-end-column="20" />
+        <state relative-caret-position="192">
+          <caret line="109" column="20" lean-forward="true" selection-start-line="109" selection-start-column="20" selection-end-line="109" selection-end-column="20" />
           <folding>
             <element signature="e#19#39#0" expanded="true" />
           </folding>

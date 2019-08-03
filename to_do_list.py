@@ -284,26 +284,22 @@ lbl_display.grid(row=50, column=0, columnspan=2, rowspan=1, sticky='WE')
 txt_input = tk.Entry(root, width=15, text='to-do-list', bg='#ffffff')
 txt_input.grid(row=3, column=0, columnspan=2, sticky='WE')
 
-lb_frame = Frame(root, height=50, bd=3)
+# Make a frame
+lb_frame = Frame(root, height=30, bd=3)
 lb_frame.grid(sticky=N+S+E+W)
+# Create scrollbar
+scrollbar = Scrollbar(lb_frame, orient='vertical')
+scrollbar.grid(row=6, column=2, rowspan=10, sticky='NS')
+# Add listbox to frame
+lb_tasks = tk.Listbox(lb_frame, yscrollcommand=scrollbar.set,
+                      selectbackground='#bee6e2', width=32, height=7)
+lb_tasks.grid(row=6, column=0, rowspan=10, sticky='WE')
+# Config scrollbar
+scrollbar.config(command=lb_tasks.yview)
 
-lb_tasks = tk.Listbox(lb_frame, selectbackground='#bee6e2', height=15)
-lb_tasks.grid(row=6, column=0, rowspan=10, columnspan=2, sticky='WE')
-
-# scrollbar = Scrollbar(lb_frame, orient='vertical')
-# scrollbar.config(command=lb_tasks.yview)
-# scrollbar.grid(row=6, column=0, sticky='NS')
-# lb_tasks.config(yscrollcommand=scrollbar.set)
-# scrollbar.pack(side='right')
-
-
-
-
-# Keep track of data_models using a list
-# tasks = ['play with Benny', 'call Birdy', 'water plants']
 load_task_list(tasks)
 lb_tasks.selection_set(first=0)
-# Start the main events loop
+
 root.mainloop()
 
 # TODO:
