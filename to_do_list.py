@@ -5,13 +5,27 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import simpledialog
 from PIL import Image, ImageTk
+# from data_models.AddBox import AddBox
 
 __author__ = 'Jordan Engstrom'
 __version__ = '1.0'
 
 
-# =============================  functions  =============================
+# =========================== functions ===========================
+# def add_task(*args):
+#     task = txt_input.get()
+#     if txt_input.get() is not '':
+#         tasks.append(task)
+#     else:
+#         lbl_display['text'] = 'Please enter a task.'
+#     txt_input.delete(0, 'end')
+#     show_number_of_tasks()
+#     show_number_of_tasks()
+#     update_listbox()
+
 def add_task(*args):
+    # add_box = AddBox
+    # add_box.root = root
     task = txt_input.get()
     if txt_input.get() is not '':
         tasks.append(task)
@@ -19,6 +33,7 @@ def add_task(*args):
         lbl_display['text'] = 'Please enter a task.'
     txt_input.delete(0, 'end')
     update_listbox()
+
 
 
 def del_all():
@@ -93,12 +108,13 @@ def show_number_of_tasks():
 
 def edit_task():
     selected_task = lb_tasks.get('active')
-    if selected_task is not None or '':
+    global tasks
+    if (selected_task is not None or '') and (len(tasks) > 0):
         replacement_task = simpledialog.askstring('Edit task',
                                                   'Edit your task\'s'
                                                   'text below:',
                                                   parent=root)
-        global tasks
+        # global tasks
         # TODO: Make this more pythonic with list comprehension
         for task in tasks:
             if task == selected_task:
@@ -107,13 +123,10 @@ def edit_task():
                     i = tasks.index(selected_task)
                     tasks[i] = replacement_task
                     update_listbox()
-                else:
-                    pass
-            else:
-                pass
-
+    elif len(tasks) == 0:
+        lbl_display['text'] = 'No tasks to edit'
     else:
-        print('selected_task is None')
+        pass
 
 
 # Populates the listbox in the window
@@ -203,24 +216,16 @@ elif get_platform() == 'Windows':
 
 text = Text(root)
 text.config(wrap=CHAR)
-# text.grid(padx=5)
 root.bind('<Return>', add_task)
 root.bind('<BackSpace>', del_one)
-root.geometry('275x400')
+root.minsize(327, 260)
+root.maxsize(327, 260)
+root.geometry('327x260')
 root.title('Jordan\'s First Tkinter App')
-
-# root.rowconfigure(0, pad=20)
-root.rowconfigure(1, pad=5)
-root.rowconfigure(2, pad=5)
-root.rowconfigure(3, pad=5)
-
-root.columnconfigure(0, pad=50)
-root.columnconfigure(1, pad=50)
-root.columnconfigure(2, pad=50)
 
 menu = Menu(root)
 root.config(menu=menu, bg='#ffffff')
-sub_menu_1 = tk.Menu(menu)
+sub_menu_1 = tk.Menu(menu, tearoff=False)
 menu.add_cascade(label='File', menu=sub_menu_1)
 sub_menu_1.add_command(label='New', command=add_task)
 sub_menu_1.add_command(label='Edit', command=edit_task)
@@ -287,27 +292,28 @@ print(tasks)
 show_tasks = False
 
 lbl_title = tk.Label(root, text='To Do List', bg='#bee6e2')
-lbl_title.grid(row=1, column=0, columnspan=2, sticky='WE')
+lbl_title.grid(row=1, column=0, columnspan=8, sticky='WE')
 
-lbl_display = tk.Label(root, text='', bg='#ffffff', wraplength=155,
-                       justify=CENTER)
-lbl_display.grid(row=50, column=0, columnspan=2, rowspan=1, sticky='WE')
-
-txt_input = tk.Entry(root, width=15, text='to-do-list', bg='#ffffff')
-txt_input.grid(row=3, column=0, columnspan=2, sticky='WE')
+txt_input = tk.Entry(root, width=10, text='to-do-list', bg='#ffffff')
+txt_input.grid(row=3, column=0, columnspan=3, sticky='WE')
 
 # Make a frame
 lb_frame = Frame(root, height=30, bd=3)
-lb_frame.grid(sticky=N+S+E+W)
+lb_frame.grid(sticky='WE')
 # Create scrollbar
 scrollbar = Scrollbar(lb_frame, orient='vertical')
 scrollbar.grid(row=6, column=2, rowspan=10, sticky='NS')
 # Add listbox to frame
 lb_tasks = tk.Listbox(lb_frame, yscrollcommand=scrollbar.set,
-                      selectbackground='#bee6e2', width=32, height=7)
+                      selectbackground='#bee6e2', selectforeground='#000000',
+                      width=25, height=7)
 lb_tasks.grid(row=6, column=0, rowspan=10, sticky='WE')
 # Config scrollbar
 scrollbar.config(command=lb_tasks.yview)
+
+lbl_display = tk.Label(root, text='', bg='#ffffff', wraplength=155,
+                       justify=CENTER)
+lbl_display.grid(row=17, column=0, columnspan=8, rowspan=1, sticky='WE')
 
 load_task_list(tasks)
 lb_tasks.selection_set(first=0)
@@ -315,9 +321,7 @@ lb_tasks.selection_set(first=0)
 root.mainloop()
 
 # TODO:
-# ummm get a main method going
+# main method
 # add priority
 # Entry text placeholder
-# edit functionality
 # play with fonts
-# fix margin/border/padding

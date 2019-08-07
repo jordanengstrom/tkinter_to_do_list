@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25f8d47e-0762-43cc-b149-96c122bb74cf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/data_models/AddBox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/to_do_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/to_do_list.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,10 +17,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/to_do_list.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="219" lean-forward="true" selection-start-line="219" selection-end-line="219" />
+            <state relative-caret-position="237">
+              <caret line="28" column="26" lean-forward="true" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
               <folding>
                 <element signature="e#19#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_models/AddBox.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,7 +93,12 @@
       <find>frame</find>
       <find>do_nothing</find>
       <find>edit_task</find>
+      <find>columnspan</find>
       <find>edit</find>
+      <find>Mbox</find>
+      <find>add_task</find>
+      <find>priority</find>
+      <find>num</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -100,6 +119,10 @@
         <option value="$PROJECT_DIR$/images/image_credits.txt" />
         <option value="$PROJECT_DIR$/hover_info.py" />
         <option value="$PROJECT_DIR$/data_models/list_data.txt" />
+        <option value="$PROJECT_DIR$/data_models/task_dialog_box.py" />
+        <option value="$PROJECT_DIR$/data_models/MyDialog.py" />
+        <option value="$PROJECT_DIR$/data_models/Mbox.py" />
+        <option value="$PROJECT_DIR$/data_models/AddBox.py" />
         <option value="$PROJECT_DIR$/to_do_list.py" />
       </list>
     </option>
@@ -171,6 +194,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.to_do_list">
+    <configuration name="AddBox" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="gui_exp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_models/AddBox.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="gui_exp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -238,10 +282,12 @@
       <item itemvalue="Python.main" />
       <item itemvalue="Python.menu_ex" />
       <item itemvalue="Python.to_do_list" />
+      <item itemvalue="Python.AddBox" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.to_do_list" />
+        <item itemvalue="Python.AddBox" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.menu_ex" />
       </list>
@@ -279,7 +325,7 @@
     <frame x="0" y="23" width="1440" height="802" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49929875" visible="true" weight="0.1595136" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49929875" visible="true" weight="0.16380544" />
       <window_info id="Structure" order="1" sideWeight="0.50070125" side_tool="true" weight="0.15522175" />
       <window_info id="Project Explorer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -300,7 +346,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="Run" order="3" side_tool="true" visible="true" weight="0.31688127" />
+      <window_info active="true" anchor="right" id="Run" order="3" side_tool="true" visible="true" weight="0.34549356" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15593705" />
@@ -362,16 +408,6 @@
     <entry file="file://$USER_HOME$/Downloads/list_small.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/to_do_list.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="219" lean-forward="true" selection-start-line="219" selection-end-line="219" />
-          <folding>
-            <element signature="e#19#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_models/list_data.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -393,6 +429,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="81" selection-start-column="81" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_models/AddBox.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/to_do_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="28" column="26" lean-forward="true" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+          <folding>
+            <element signature="e#19#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
